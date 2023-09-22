@@ -10,7 +10,7 @@ def callback(data):
     global speed
     print(speed)
     for i in rangerDan:
-        if i < 0.5:
+        if i < 0.85:
             print("Stop!")
             speed = 0
             print("Speed:" + str(speed))
