@@ -8,17 +8,16 @@ def callback(data):
     rangerDan = data.ranges
     x = 0
     global speed
-    print(speed)
     for i in rangerDan:
+        x = x + 1
         if i < 0.85:
-            print("Stop!")
+            print("Stop! Collision range at " + str(x))
             speed = 0
-            print("Speed:" + str(speed))
             rospy.signal_shutdown("Collision Imminent")
             return 0
         else:
             randomElse = True
-
+    
 def move():
     # Starts a new node
     rospy.init_node('robot_cleaner', anonymous=True)
@@ -41,7 +40,6 @@ def move():
             pub.publish(vel_msg)
         vel_msg.linear.x = 0
         pub.publish(vel_msg)
-        print("hello")
     rospy.spin()
 if __name__ == '__main__':
     try:
