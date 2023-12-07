@@ -1,21 +1,39 @@
 #!/usr/bin/env python3
 import rospy
 from sensor_msgs.msg import JointState
+import time
 jointPain = None
 
 def moveNao():
 	rospy.init_node('nao_movement', anonymous=True)
 	pub = rospy.Publisher('joint_states', JointState, queue_size=10)
-	jointPain = [0.0, -9.093359999989836e-05, -0.00010594240000005861, -0.0001550409999999669, -0.00038482599999989375, -0.00016400378000000493, -0.00016097489999999937, -1.490230000000814e-05, -0.00010594240000005861, -0.0001959274999999705, -0.00038482599999989375, 	-0.00016400378000000493, -4.8639999999711137e-05, -0.0001017730000000272, 0.0, -0.00014643740000003236, 0.0, -0.7897633000000001, 0.0, 0.0, 0.0, -1.7623500000008008e-05, 0.0, 0.7897633000000001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+	rate = rospy.Rate(10)
 	mainState = JointState()
-	i = 0.0
-	while i < 1.95:
-		jointPain[0] = i 
-		mainState.header.stamp = rospy.Time()
-		mainState.position = jointPain
-		mainState.name = ['HeadYaw', 'HeadPitch', 'LHipYawPitch', 'LHipRoll', 'LHipPitch', 'LKneePitch', 'LAnklePitch', 'LAnkleRoll', 'RHipYawPitch', 'RHipRoll', 'RHipPitch', 'RKneePitch', 'RAnklePitch', 'RAnkleRoll', 'LShoulderPitch', 'LShoulderRoll', 'LElbowYaw', 'LElbowRoll', 'LWristYaw', 'LHand', 'RShoulderPitch', 'RShoulderRoll', 'RElbowYaw', 'RElbowRoll', 'RWristYaw', 'RHand', 'RFinger23', 'RFinger13', 'RFinger12', 'LFinger21', 'LFinger13', 'LFinger11', 'RFinger22', 'LFinger22', 'RFinger21', 'LFinger12', 'RFinger11', 'LFinger23', 'LThumb1', 'RThumb1', 'RThumb2', 'LThumb2']
-		pub.publish(jointPain)	
-		i += 0.001
+	start = 1.15
+	finish = -1.5
+	splits = 20
+	while not rospy.is_shutdown():
+		mainState.header.stamp = rospy.get_rostime()
+		mainState.header.frame_id = "Torso"
+		mainState.name.append("HeadYaw")
+		mainState.name.append("HeadPitch")
+		mainState.position.append(0.0)
+		mainState.position.append(start)
+		pub.publish(mainState)
+		totalDistance = finish - start
+		increment = totalDistance/splits
+		time.sleep(.5)
+		for i in range(splits):
+			mainState.header.stamp = rospy.get_rostime()
+			mainState.position[0] = 0
+			mainState.position[1] = mainState.position[1] + increment
+			pub.publish(mainState)
+			time.sleep(.2)
+		mainState.position[1]=start
+		pub.publish(mainState)
+		rate.sleep()	
+
+	
 	
 
 if __name__ == '__main__':
