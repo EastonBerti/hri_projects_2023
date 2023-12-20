@@ -7,6 +7,15 @@ import copy
 from geometry_msgs.msg import TransformStamped, Quaternion
 from tf2_ros import TransformBroadcaster
 
+# AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHh
+# WHAT EVEN IS THE ONLINE RESOURCES ON THIS
+#AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+#Hi dave if youre reading this then clearly it broke me
+#UHhhhhhhhhhhhhhhhhhhhhhhh
+#Maybe one day Ill be good at anything in ROS other than moving the Nao
+#at least i managed to get an obstacle avoiding roamer and a tf frame publisher
+
+
 global tf
 
 speed = 1.0

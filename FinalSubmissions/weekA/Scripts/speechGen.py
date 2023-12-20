@@ -5,6 +5,14 @@ import pyaudio
 import simpleaudio as sa
 import numpy as np
 
+# AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHh
+# WHAT EVEN IS THE ONLINE RESOURCES ON THIS
+#AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+#Hi dave if youre reading this then clearly it broke me
+#UHhhhhhhhhhhhhhhhhhhhhhhh
+#Maybe one day Ill be good at anything in ROS other than moving the Nao
+#Ima copy this rant and put it in the goal moving
+
 def playback(recognizer, stream, playback_obj):
 	soundhandle.say("Speak now")
 
